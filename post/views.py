@@ -2,6 +2,7 @@ from rest_framework import viewsets, mixins
 from .serializers import (
     PostSerializer, CommentSerializer, UserSerializer
 )
+from .filters import PostFilter
 from .models import Post, Comment
 from django.contrib.auth.models import User
 
@@ -14,6 +15,7 @@ class PostViewSet(
         ):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_class = PostFilter
 
 
 class CommentViewSet(
@@ -26,6 +28,7 @@ class CommentViewSet(
 
 
 class UserViewSet(
+            mixins.ListModelMixin,
             mixins.RetrieveModelMixin,
             viewsets.GenericViewSet
         ):
